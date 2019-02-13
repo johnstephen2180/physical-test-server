@@ -25,6 +25,7 @@ public class ExaminationController {
 
 	@PostMapping(path = "/get")
 	public @ResponseBody Examination getExam(@RequestParam("id") long examId) {
+		System.out.println("test");
 		return examManager.getExam(examId);
 	}
 
