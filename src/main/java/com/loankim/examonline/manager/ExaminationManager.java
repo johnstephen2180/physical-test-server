@@ -80,8 +80,7 @@ public class ExaminationManager implements InitializingBean {
 
 		Map<Integer, Answer> answerMap = new HashMap<>();
 		try (XMLSlideShow answerPPT = new XMLSlideShow(answerFile)) {
-			answerMap = answerPPT.getSlides().stream()
-					.map(slide -> new Answer(Integer.parseInt(slide.getTitle()), slide))
+			answerMap = answerPPT.getSlides().stream().map(slide -> new Answer(slide))
 					.collect(Collectors.toMap(Answer::getOrder, answer -> answer));
 		} catch (Exception e) {
 			throw new CreateExamException();
@@ -93,7 +92,7 @@ public class ExaminationManager implements InitializingBean {
 		try (XMLSlideShow suggestPPT = new XMLSlideShow(suggestFile)) {
 			suggestMap = suggestPPT.getSlides().stream().map(slide -> {
 				Suggest suggest = new Suggest();
-				String suggestCode = slide.getTitle();
+				String suggestCode = slide.getTitle().trim();
 				String[] items = StringUtils.split(suggestCode, "#");
 				suggest.setQuestionOrder(Integer.parseInt(items[0]));
 				suggest.setOrder(Integer.parseInt(items[1]));
@@ -166,7 +165,7 @@ public class ExaminationManager implements InitializingBean {
 	}
 
 
-	public boolean trackQuestion(long accountId, long examId, int questionOrder, int suggestOrder) {
+	public boolean trackQuestion(long accountId, long examId, int questionOrder, int suggestOrder, boolean isRight) {
 		String historyId = LessonHistory.genId(accountId, examId);
 		LessonHistory lessonHistory = userExamCache.get(historyId);
 		if (lessonHistory == null) {
@@ -178,7 +177,7 @@ public class ExaminationManager implements InitializingBean {
 			userExamCache.put(historyId, lessonHistory);
 		}
 
-		lessonHistory.updateQuestionTrack(questionOrder, suggestOrder);
+		lessonHistory.updateQuestionTrack(questionOrder, suggestOrder, isRight);
 		lessonHistoryRepo.save(lessonHistory);
 		return true;
 	}

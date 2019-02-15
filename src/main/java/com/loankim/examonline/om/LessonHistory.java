@@ -44,7 +44,7 @@ public class LessonHistory {
 	}
 
 
-	public void updateQuestionTrack(int questionOrder, int suggestOrder) {
+	public void updateQuestionTrack(int questionOrder, int suggestOrder, boolean isRight) {
 		if (!examination.checkExistQuestionOrSuggest(questionOrder, suggestOrder)) {
 			return;
 		}
@@ -59,6 +59,7 @@ public class LessonHistory {
 			questionState = new QuestionState(questionOrder, suggestOrder);
 			questions.add(questionState);
 		}
+		questionState.setFinish(isRight);
 	}
 
 

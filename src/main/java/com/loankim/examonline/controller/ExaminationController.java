@@ -25,7 +25,6 @@ public class ExaminationController {
 
 	@PostMapping(path = "/get")
 	public @ResponseBody Examination getExam(@RequestParam("id") long examId) {
-		System.out.println("test");
 		return examManager.getExam(examId);
 	}
 
@@ -37,20 +36,25 @@ public class ExaminationController {
 
 
 	@PostMapping(path = "/check")
-	public @ResponseBody boolean checkResult(@RequestParam("id") long questionId,
-			@RequestParam("result") float result) {
+	public @ResponseBody boolean checkResult(@RequestParam("id") long questionId, @RequestParam("result") float result,
+			Authentication authentication) {
 		Question question = examManager.getQuestion(questionId);
-		return question.isRight(result);
+		boolean right = question.isRight(result);
+		if (right) {
+			trackQuestion(question.getExamId(), question.getOrder(), question.getSuggestList().size(), authentication,
+					right);
+		}
+		return right;
 	}
 
 
 	@PostMapping(path = "/track")
-	public @ResponseBody boolean checkResult(@RequestParam("examId") long examId,
+	public @ResponseBody boolean trackQuestion(@RequestParam("examId") long examId,
 			@RequestParam("questionOrder") int questionOrder, @RequestParam("suggestOrder") int suggestOrder,
-			Authentication authentication) {
+			Authentication authentication, boolean isRight) {
 		System.out.println("track: question:" + questionOrder + "/suggestOrder:" + suggestOrder);
 		AuthenticatedUser user = (AuthenticatedUser) authentication.getPrincipal();
-		return examManager.trackQuestion(user.getUserId(), examId, questionOrder, suggestOrder);
+		return examManager.trackQuestion(user.getUserId(), examId, questionOrder, suggestOrder, isRight);
 	}
 
 
