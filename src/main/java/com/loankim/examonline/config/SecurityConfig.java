@@ -14,6 +14,9 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.web.authentication.UsernamePasswordAuthenticationFilter;
 import org.springframework.security.web.util.matcher.AntPathRequestMatcher;
 import org.springframework.security.web.util.matcher.OrRequestMatcher;
+import org.springframework.web.cors.CorsConfiguration;
+import org.springframework.web.cors.UrlBasedCorsConfigurationSource;
+import org.springframework.web.filter.CorsFilter;
 
 import com.loankim.examonline.security.JwtAuthenticationEntryPoint;
 import com.loankim.examonline.security.JwtAuthenticationProvider;
@@ -57,12 +60,54 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 	}
 
 
+	// @Bean
+	// public CorsConfigurationSource corsConfigurationSource() {
+	// CorsConfiguration configuration = new CorsConfiguration();
+	// configuration.setAllowedOrigins(Arrays.asList("*"));
+	// configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT",
+	// "PATCH", "DELETE", "OPTIONS"));
+	// configuration.setAllowedHeaders(Arrays.asList("authorization",
+	// "content-type", "x-auth-token"));
+	// configuration.setExposedHeaders(Arrays.asList("x-auth-token"));
+	// UrlBasedCorsConfigurationSource source = new
+	// UrlBasedCorsConfigurationSource();
+	// source.registerCorsConfiguration("/**", configuration);
+	// return source;
+	// }
+
+	@Bean
+	public CorsFilter corsFilter() {
+		UrlBasedCorsConfigurationSource source = new UrlBasedCorsConfigurationSource();
+		CorsConfiguration config = new CorsConfiguration();
+		config.setAllowCredentials(true);
+		config.addAllowedOrigin("*");
+		config.addAllowedHeader("*");
+		config.addAllowedMethod("OPTIONS");
+		config.addAllowedMethod("HEAD");
+		config.addAllowedMethod("GET");
+		config.addAllowedMethod("PUT");
+		config.addAllowedMethod("POST");
+		config.addAllowedMethod("DELETE");
+		config.addAllowedMethod("PATCH");
+		source.registerCorsConfiguration("/**", config);
+
+		return new CorsFilter(source);
+	}
+
+
 	@Override
 	protected void configure(HttpSecurity httpSecurity) throws Exception {
-		// we don't need CSRF because our token is invulnerable
+		// we don't need CSRF because our token is invulnerable, tan cong dua
+		// vao seasion da chung thuc, lua nhan vao duong dan de thuc thi voi
+		// quyen cua nan nhan, khi su dung token tren moi request thi ko the tan
+		// cong CSRF duoc
 		httpSecurity.csrf().disable();
+		// httpSecurity.addFilterBefore(new CorsFilter(),
+		// ChannelProcessingFilter.class);
 		httpSecurity.authorizeRequests().antMatchers("/images/**").permitAll();
 		httpSecurity.authorizeRequests().antMatchers("/token/**").permitAll();
+		// enable cors filter
+		httpSecurity.cors();
 		// don't create session
 		httpSecurity.sessionManagement().sessionCreationPolicy(SessionCreationPolicy.STATELESS).and()
 				// All urls must be authenticated (filter for token always fires

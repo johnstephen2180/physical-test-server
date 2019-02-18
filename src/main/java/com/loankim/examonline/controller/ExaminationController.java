@@ -59,9 +59,10 @@ public class ExaminationController {
 
 
 	@PostMapping(path = "/history")
-	public @ResponseBody Page<LessonHistory> getLessonHistoryByUser(Authentication authentication) {
+	public @ResponseBody Page<LessonHistory> getLessonHistoryByUser(@RequestParam("page") int page,
+			Authentication authentication) {
 		AuthenticatedUser user = (AuthenticatedUser) authentication.getPrincipal();
-		return examManager.getExamByAccountId(user.getUserId(), 0);
+		return examManager.getExamByAccountId(user.getUserId(), page);
 	}
 
 

@@ -12,6 +12,7 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.AuthenticationException;
 import org.springframework.security.web.authentication.AbstractAuthenticationProcessingFilter;
 
+import com.loankim.examonline.security.exception.JwtTokenMissingException;
 import com.loankim.examonline.security.model.JwtAuthenticationToken;
 import com.loankim.examonline.util.AuthHelper;
 
@@ -27,28 +28,19 @@ public class JwtAuthenticationTokenFilter extends AbstractAuthenticationProcessi
 
 	public JwtAuthenticationTokenFilter(String defaultFilterProcessesUrl) {
 		super(defaultFilterProcessesUrl);
-		
+
 	}
 
 
 	@Override
 	public Authentication attemptAuthentication(HttpServletRequest request, HttpServletResponse response)
 			throws AuthenticationException, IOException, ServletException {
-		// String header = request.getHeader("authorization");
-		// String header2 = request.getHeader("headers");
-		// String title = request.getParameter("title");
-
-		// if (header != null)
-		// header = HEADER_PREFIX + header;
-		//
-		// if (header == null || !header.startsWith("Bearer "))
-		// throw new JwtTokenMissingException("No JWT token found in request
-		// headers");
-		// String authToken = header.replace(HEADER_PREFIX, "");
-		String authToken = request.getParameter("token");
+		String header = request.getHeader("Authorization");
+		if (header == null || !header.startsWith("Bearer "))
+			throw new JwtTokenMissingException("No JWT token found in request headers");
 
 		try {
-
+			String authToken = header.replace(HEADER_PREFIX, "");
 			AuthHelper.verifyToken(authToken);
 			return getAuthenticationManager().authenticate(new JwtAuthenticationToken(authToken));
 		} catch (Exception e) {
