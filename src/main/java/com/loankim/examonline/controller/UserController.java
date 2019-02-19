@@ -22,4 +22,11 @@ public class UserController {
 	public @ResponseBody Page<Account> getAllUser(@RequestParam("page") int page) {
 		return accountManager.getAllAccount(page);
 	}
+
+
+	@PostMapping(path = "/detail")
+	public @ResponseBody Account getUserDetail(@RequestParam("id") long accountId) {
+		return accountManager.getAccount(accountId);
+	}
+
 }

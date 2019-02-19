@@ -80,8 +80,17 @@ public class ExaminationManager implements InitializingBean {
 
 		Map<Integer, Answer> answerMap = new HashMap<>();
 		try (XMLSlideShow answerPPT = new XMLSlideShow(answerFile)) {
-			answerMap = answerPPT.getSlides().stream().map(slide -> new Answer(slide))
-					.collect(Collectors.toMap(Answer::getOrder, answer -> answer));
+			for (XSLFSlide xslfSlide : answerPPT.getSlides()) {
+				int answerOrder = Answer.getOrderFromSlide(xslfSlide);
+				Answer answer = answerMap.get(answerOrder);
+				if (answer == null) {
+					answer = new Answer(xslfSlide);
+					answerMap.put(answerOrder, answer);
+				} else {
+					answer.addSlide(xslfSlide);
+				}
+			}
+
 		} catch (Exception e) {
 			throw new CreateExamException();
 		}
