@@ -35,7 +35,8 @@ public class Answer {
 		String[] items = StringUtils.split(title, "#");
 		this.order = Integer.parseInt(items[0]);
 		if (items.length >= 2) {
-			result = Float.parseFloat(items[1]);
+			String value = items[1].replace(",", ".");
+			result = Float.parseFloat(value);
 		}
 	}
 

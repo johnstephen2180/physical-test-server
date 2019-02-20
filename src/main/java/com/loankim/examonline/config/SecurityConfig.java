@@ -28,7 +28,7 @@ import com.loankim.examonline.security.JwtAuthenticationTokenFilter;
  *         https://gitlab.com/palmapps/jwt-spring-security-demo/blob/master/src/main/java/nl/palmapps/myawesomeproject/security/config/WebSecurityConfig.java
  * 
  *         https://www.linkedin.com/pulse/json-web-token-jwt-spring-security-real-world-example-boris-trivic/
- *
+ *https://stackoverflow.com/questions/36991562/how-can-i-set-up-a-letsencrypt-ssl-certificate-and-use-it-in-a-spring-boot-appli
  */
 @EnableWebSecurity
 // Enable this annotation for @PreAuthorize in controller is active
