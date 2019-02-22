@@ -26,8 +26,7 @@ public class CreateExamController {
 	@PostMapping(path = "/create/exam")
 	public @ResponseBody Examination createExam(@RequestParam("title") String title,
 			@RequestParam("questionFile") MultipartFile file, @RequestParam("suggestFile") MultipartFile suggestFile,
-			@RequestParam("resultFile") MultipartFile answerFile, Authentication authentication)
-			throws CreateExamException, IOException {
+			@RequestParam("resultFile") MultipartFile answerFile, Authentication authentication) throws IOException {
 
 		AuthenticatedUser user = (AuthenticatedUser) authentication.getPrincipal();
 		Examination exam = examManager.createExamination(user.getUserId(), title, file.getInputStream(),

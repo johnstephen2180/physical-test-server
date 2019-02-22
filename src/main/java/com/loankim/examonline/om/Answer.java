@@ -26,18 +26,13 @@ public class Answer {
 	}
 
 
-	public Answer(XSLFSlide slide) {
+	public Answer(XSLFSlide slide, int order, Float result) {
 		slideList = new ArrayList<>();
 		contentList = new ArrayList<>();
 		addSlide(slide);
 
-		String title = slide.getTitle().trim();
-		String[] items = StringUtils.split(title, "#");
-		this.order = Integer.parseInt(items[0]);
-		if (items.length >= 2) {
-			String value = items[1].replace(",", ".");
-			result = Float.parseFloat(value);
-		}
+		this.order = order;
+		this.result = result;
 	}
 
 

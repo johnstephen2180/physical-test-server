@@ -39,6 +39,6 @@ public class AccountManager implements InitializingBean {
 
 
 	public Page<Account> getAllAccount(int page) {
-		return accountRepo.findAll(new PageRequest(page, 2, new Sort(Sort.Direction.DESC, "id")));
+		return accountRepo.findAll(new PageRequest(page, 5, new Sort(Sort.Direction.DESC, "id")));
 	}
 }

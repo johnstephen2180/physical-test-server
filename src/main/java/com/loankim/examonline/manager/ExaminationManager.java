@@ -69,7 +69,7 @@ public class ExaminationManager implements InitializingBean {
 
 
 	public Page<Examination> getExam(int page) {
-		return examRepo.findAll(new PageRequest(page, 2, new Sort(Sort.Direction.DESC, "id")));
+		return examRepo.findAll(new PageRequest(page, 5, new Sort(Sort.Direction.DESC, "id")));
 	}
 
 
@@ -79,20 +79,30 @@ public class ExaminationManager implements InitializingBean {
 		Examination exam = new Examination();
 
 		Map<Integer, Answer> answerMap = new HashMap<>();
+		int readAtSlide = 1;
 		try (XMLSlideShow answerPPT = new XMLSlideShow(answerFile)) {
 			for (XSLFSlide xslfSlide : answerPPT.getSlides()) {
-				int answerOrder = Answer.getOrderFromSlide(xslfSlide);
+				String slideTitle = xslfSlide.getTitle().trim();
+				String[] items = StringUtils.split(slideTitle, "#");
+				int answerOrder = Integer.parseInt(items[0]);
+				Float result = null;
+				if (items.length >= 2) {
+					String value = items[1].replace(",", ".");
+					result = Float.parseFloat(value);
+				}
+
 				Answer answer = answerMap.get(answerOrder);
 				if (answer == null) {
-					answer = new Answer(xslfSlide);
+					answer = new Answer(xslfSlide, answerOrder, result);
 					answerMap.put(answerOrder, answer);
 				} else {
 					answer.addSlide(xslfSlide);
 				}
+				readAtSlide++;
 			}
 
 		} catch (Exception e) {
-			throw new CreateExamException();
+			throw CreateExamException.answerSlideExpception(readAtSlide);
 		}
 
 		int questionSize = answerMap.size();
@@ -194,15 +204,23 @@ public class ExaminationManager implements InitializingBean {
 
 	public Page<LessonHistory> getExamByAccountId(long accountId, int page) {
 		Page<LessonHistory> lessionHistoryPage = lessonHistoryRepo.getLessionHistoryByAccountId(accountId,
-				new PageRequest(page, 10, new Sort(Sort.Direction.DESC, "startTime")));
+				new PageRequest(page, 5, new Sort(Sort.Direction.DESC, "startTime")));
 		lessionHistoryPage.getContent().stream().forEach(lesson -> lesson.setExamination(getExam(lesson.getExamId())));
 		return lessionHistoryPage;
 	}
 
 
+	public LessonHistory getLessonHistory(String historyId) {
+		LessonHistory lessonHistory = lessonHistoryRepo.findOne(historyId);
+		lessonHistory.setExamination(getExam(lessonHistory.getExamId()));
+		lessonHistory.setAccount(accountManager.getAccount(lessonHistory.getAccountId()));
+		return lessonHistory;
+	}
+
+
 	public Page<LessonHistory> getLessonHistory(int page) {
 		Page<LessonHistory> lessionHistoryPage = lessonHistoryRepo
-				.getLessionHistory(new PageRequest(page, 10, new Sort(Sort.Direction.DESC, "startTime")));
+				.getLessionHistory(new PageRequest(page, 5, new Sort(Sort.Direction.DESC, "startTime")));
 		lessionHistoryPage.getContent().stream().forEach(lesson -> {
 			lesson.setExamination(getExam(lesson.getExamId()));
 			lesson.setAccount(accountManager.getAccount(lesson.getAccountId()));

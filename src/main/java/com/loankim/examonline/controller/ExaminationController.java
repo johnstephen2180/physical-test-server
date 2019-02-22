@@ -66,10 +66,16 @@ public class ExaminationController {
 	}
 
 
+	@PostMapping(path = "/history/detail")
+	public @ResponseBody LessonHistory getLessonHistoryDetailByUser(@RequestParam("historyId") String historyId) {
+		return examManager.getLessonHistory(historyId);
+	}
+
+
 	@PostMapping(path = "/history/all")
 	@PreAuthorize("hasRole('ROLE_ADMIN')")
-	public @ResponseBody Page<LessonHistory> getLessonHistoryByAdmin() {
-		return examManager.getLessonHistory(0);
+	public @ResponseBody Page<LessonHistory> getLessonHistoryByAdmin(@RequestParam("page") int page) {
+		return examManager.getLessonHistory(page);
 	}
 
 }

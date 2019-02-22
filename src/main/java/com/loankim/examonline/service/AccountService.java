@@ -17,7 +17,7 @@ public class AccountService {
 
 	public void save(Account account) {
 		HashSet<Role> roles = new HashSet<>();
-		roles.add(new Role(0, "ROLE_ADMIN", "Giao Vien"));
+		// roles.add(new Role(0, "ROLE_ADMIN", "Giao Vien"));
 		roles.add(new Role(1, "ROLE_USER", "Hoc Sinh"));
 		account.setRoles(roles);
 		accountRepo.save(account);
