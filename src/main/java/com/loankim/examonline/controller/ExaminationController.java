@@ -25,7 +25,9 @@ public class ExaminationController {
 
 	@PostMapping(path = "/get")
 	public @ResponseBody Examination getExam(@RequestParam("id") long examId) {
-		return examManager.getExam(examId);
+		Examination exam = examManager.getExam(examId);
+		exam.getQuestionList().sort((q1, q2) -> q1.getOrder() - q2.getOrder());
+		return exam;
 	}
 
 
