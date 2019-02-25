@@ -159,6 +159,9 @@ public class ExaminationManager implements InitializingBean {
 
 	public Examination commitExamination(long userId) {
 		Examination exam = createExamCache.get(userId);
+		if (exam == null)
+			return null;
+		
 		createExamCache.remove(userId);
 		long examId = autoIncrService.genExamId();
 		exam.setId(examId);
