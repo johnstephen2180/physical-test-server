@@ -1,5 +1,7 @@
 package com.loankim.examonline.om;
 
+import java.util.HashSet;
+import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
 
@@ -142,6 +144,24 @@ public class Account {
 
 	public void setToken(String token) {
 		this.token = token;
+	}
+
+
+	// role nen la Enum vi role nay ko bi doi
+	public void updateRoles(List<String> roleList) {
+		HashSet<Role> roles = new HashSet<>();
+		for (String role : roleList) {
+			if (role.equals("ROLE_GUEST")) {
+				roles.add(new Role(2, "ROLE_GUEST", "Khach"));
+			} else if (role.equals("ROLE_USER")) {
+				roles.add(new Role(1, "ROLE_USER", "Hoc Sinh"));
+			} else if (role.equals("ROLE_ADMIN")) {
+				roles.add(new Role(0, "ROLE_ADMIN", "Giao Vien"));
+
+			}
+		}
+
+		setRoles(roles);
 	}
 
 }

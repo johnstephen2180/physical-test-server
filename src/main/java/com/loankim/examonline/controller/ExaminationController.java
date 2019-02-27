@@ -24,6 +24,7 @@ public class ExaminationController {
 
 
 	@PostMapping(path = "/get")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 	public @ResponseBody Examination getExam(@RequestParam("id") long examId) {
 		Examination exam = examManager.getExam(examId);
 		exam.getQuestionList().sort((q1, q2) -> q1.getOrder() - q2.getOrder());
@@ -32,6 +33,7 @@ public class ExaminationController {
 
 
 	@PostMapping(path = "/all")
+	@PreAuthorize("hasRole('ROLE_ADMIN') or hasRole('ROLE_USER')")
 	public @ResponseBody Page<Examination> getAllExam(@RequestParam("page") int page) {
 		return examManager.getExam(page);
 	}
