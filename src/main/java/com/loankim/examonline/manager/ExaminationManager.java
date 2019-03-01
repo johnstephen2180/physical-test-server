@@ -161,7 +161,7 @@ public class ExaminationManager implements InitializingBean {
 		Examination exam = createExamCache.get(userId);
 		if (exam == null)
 			return null;
-		
+
 		createExamCache.remove(userId);
 		long examId = autoIncrService.genExamId();
 		exam.setId(examId);
@@ -224,7 +224,7 @@ public class ExaminationManager implements InitializingBean {
 
 	public Page<LessonHistory> getLessonHistory(int page) {
 		Page<LessonHistory> lessionHistoryPage = lessonHistoryRepo
-				.getLessionHistory(new PageRequest(page, 5, new Sort(Sort.Direction.DESC, "startTime")));
+				.getLessionHistory(new PageRequest(page, 10, new Sort(Sort.Direction.DESC, "startTime")));
 		lessionHistoryPage.getContent().stream().forEach(lesson -> {
 			lesson.setExamination(getExam(lesson.getExamId()));
 			lesson.setAccount(accountManager.getAccount(lesson.getAccountId()));
