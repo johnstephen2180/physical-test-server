@@ -78,6 +78,10 @@ public class ExaminationManager implements InitializingBean {
 		examCache.remove(examId);
 		examRepo.delete(examId);
 	}
+	
+	public void editTitleExam(long examId, String title) {
+		
+	}
 
 
 	public Page<Examination> getExam(int page) {
