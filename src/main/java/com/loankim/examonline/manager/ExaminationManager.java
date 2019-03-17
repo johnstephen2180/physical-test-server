@@ -66,8 +66,13 @@ public class ExaminationManager implements InitializingBean {
 
 		return exam;
 	}
-
-
+	
+	public void removeExam(long examId) {
+		examCache.remove(examId);
+		examRepo.delete(examId);
+	}
+	
+	
 	public Page<Examination> getExam(int page) {
 		return examRepo.findAll(new PageRequest(page, 5, new Sort(Sort.Direction.DESC, "id")));
 	}
