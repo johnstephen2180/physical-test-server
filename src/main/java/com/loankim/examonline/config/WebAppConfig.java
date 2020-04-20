@@ -19,21 +19,18 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public Filter cultureFilter() {
-		System.out.println("hi");
 		return new CultureFilter();
 	}
 
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
-		System.out.println("sub branch");
 		registry.addMapping("/**");
 	}
 
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
-		System.out.println("sub branch 1");
 		registry.addResourceHandler("/images/**").addResourceLocations("file:images/");
 	}
 
