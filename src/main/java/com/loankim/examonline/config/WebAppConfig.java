@@ -19,6 +19,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
 	@Bean
 	public Filter cultureFilter() {
+		System.out.println("hi");
 		return new CultureFilter();
 	}
 
