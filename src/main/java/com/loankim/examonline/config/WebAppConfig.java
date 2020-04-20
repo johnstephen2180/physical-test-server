@@ -33,6 +33,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addResourceHandlers(ResourceHandlerRegistry registry) {
+		System.out.println("sub branch 1");
 		registry.addResourceHandler("/images/**").addResourceLocations("file:images/");
 	}
 
