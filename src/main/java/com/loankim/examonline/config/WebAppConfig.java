@@ -26,6 +26,7 @@ public class WebAppConfig extends WebMvcConfigurerAdapter {
 
 	@Override
 	public void addCorsMappings(CorsRegistry registry) {
+		System.out.println("sub branch");
 		registry.addMapping("/**");
 	}
 
