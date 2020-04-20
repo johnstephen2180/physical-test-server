@@ -16,6 +16,10 @@ import com.loankim.examonline.om.LessonHistory;
 import com.loankim.examonline.om.Question;
 import com.loankim.examonline.security.model.AuthenticatedUser;
 
+/**
+ * @author LamHM
+ *
+ */
 @RestController
 @RequestMapping("/exam")
 public class ExaminationController {
@@ -56,7 +60,6 @@ public class ExaminationController {
 	public @ResponseBody boolean trackQuestion(@RequestParam("examId") long examId,
 			@RequestParam("questionOrder") int questionOrder, @RequestParam("suggestOrder") int suggestOrder,
 			Authentication authentication, boolean isRight) {
-		System.out.println("track: question:" + questionOrder + "/suggestOrder:" + suggestOrder);
 		AuthenticatedUser user = (AuthenticatedUser) authentication.getPrincipal();
 		return examManager.trackQuestion(user.getUserId(), examId, questionOrder, suggestOrder, isRight);
 	}

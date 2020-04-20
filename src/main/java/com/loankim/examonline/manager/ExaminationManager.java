@@ -29,6 +29,10 @@ import com.loankim.examonline.om.Question;
 import com.loankim.examonline.om.Suggest;
 import com.loankim.examonline.service.AutoIncrementService;
 
+/**
+ * @author LamHM
+ *
+ */
 @Service
 public class ExaminationManager implements InitializingBean {
 	@Autowired

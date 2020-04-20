@@ -5,6 +5,10 @@ import org.springframework.stereotype.Repository;
 
 import com.loankim.examonline.om.Account;
 
+/**
+ * @author LamHM
+ *
+ */
 @Repository
 public interface AccountRepository extends MongoRepository<Account, Long> {
 

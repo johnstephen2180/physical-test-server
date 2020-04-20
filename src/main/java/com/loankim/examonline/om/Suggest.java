@@ -6,6 +6,10 @@ import org.springframework.data.annotation.Transient;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.loankim.examonline.util.ExportPPTxToImage;
 
+/**
+ * @author LamHM
+ *
+ */
 public class Suggest {
 	private int order;
 	private int questionOrder;

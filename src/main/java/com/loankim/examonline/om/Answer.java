@@ -11,6 +11,10 @@ import com.fasterxml.jackson.annotation.JsonInclude;
 import com.fasterxml.jackson.annotation.JsonInclude.Include;
 import com.loankim.examonline.util.ExportPPTxToImage;
 
+/**
+ * @author LamHM
+ *
+ */
 @JsonInclude(Include.NON_NULL)
 public class Answer {
 	private List<String> contentList;

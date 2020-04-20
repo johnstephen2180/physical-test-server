@@ -18,6 +18,10 @@ import javax.imageio.ImageIO;
 import org.apache.poi.xslf.usermodel.XMLSlideShow;
 import org.apache.poi.xslf.usermodel.XSLFSlide;
 
+/**
+ * @author LamHM
+ *
+ */
 public class ExportPPTxToImage {
 	private static final Dimension pgsize = new Dimension(850, 540);
 

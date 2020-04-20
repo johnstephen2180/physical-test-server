@@ -8,6 +8,10 @@ import org.springframework.stereotype.Repository;
 
 import com.loankim.examonline.om.LessonHistory;
 
+/**
+ * @author LamHM
+ *
+ */
 @Repository
 public interface LessonHistoryRepository extends MongoRepository<LessonHistory, String> {
 

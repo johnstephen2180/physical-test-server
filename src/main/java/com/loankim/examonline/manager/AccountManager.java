@@ -13,6 +13,10 @@ import org.springframework.stereotype.Service;
 import com.loankim.examonline.dao.AccountRepository;
 import com.loankim.examonline.om.Account;
 
+/**
+ * @author LamHM
+ *
+ */
 @Service
 public class AccountManager implements InitializingBean {
 	@Autowired

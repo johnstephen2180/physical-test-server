@@ -16,6 +16,10 @@ import com.restfb.Version;
 import com.restfb.json.JsonObject;
 
 //https://stackoverflow.com/questions/50803727/spring-with-jwt-auth-get-current-user
+/**
+ * @author LamHM
+ *
+ */
 @RestController
 public class LoginController {
 	@Autowired

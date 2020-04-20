@@ -1,5 +1,9 @@
 package com.loankim.examonline.exception;
 
+/**
+ * @author LamHM
+ *
+ */
 public class CreateExamException extends RuntimeException {
 
 	private static final long serialVersionUID = 1L;

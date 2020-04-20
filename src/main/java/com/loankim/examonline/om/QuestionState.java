@@ -1,5 +1,9 @@
 package com.loankim.examonline.om;
 
+/**
+ * @author LamHM
+ *
+ */
 public class QuestionState {
 	private int questionOrder;
 	private boolean isFinish;

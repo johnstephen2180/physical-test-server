@@ -11,6 +11,10 @@ import org.springframework.data.mongodb.core.mapping.Document;
 import com.fasterxml.jackson.annotation.JsonIgnore;
 import com.loankim.examonline.util.ExportPPTxToImage;
 
+/**
+ * @author LamHM
+ *
+ */
 @Document(collection = "question")
 public class Question {
 	@Id

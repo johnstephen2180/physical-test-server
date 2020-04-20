@@ -13,6 +13,10 @@ import org.springframework.web.bind.annotation.RestController;
 import com.loankim.examonline.manager.AccountManager;
 import com.loankim.examonline.om.Account;
 
+/**
+ * @author LamHM
+ *
+ */
 @RestController
 @RequestMapping("/user")
 public class UserController {

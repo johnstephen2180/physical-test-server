@@ -3,6 +3,10 @@ package com.loankim.examonline.om;
 import org.springframework.data.annotation.Id;
 import org.springframework.data.mongodb.core.mapping.Document;
 
+/**
+ * @author LamHM
+ *
+ */
 @Document(collection = "articles")
 public class Article {
 	@Id

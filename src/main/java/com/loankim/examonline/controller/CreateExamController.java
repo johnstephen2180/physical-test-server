@@ -16,6 +16,10 @@ import com.loankim.examonline.manager.ExaminationManager;
 import com.loankim.examonline.om.Examination;
 import com.loankim.examonline.security.model.AuthenticatedUser;
 
+/**
+ * @author LamHM
+ *
+ */
 @RestController
 @RequestMapping("/admin")
 public class CreateExamController {
